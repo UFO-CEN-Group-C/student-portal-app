@@ -11,7 +11,7 @@ var ProjectSchema = new Schema({
   teamid:String,
   teamname:String,
   creatorID:String,
-  Description: String,
+  description: String,
 },{collection: 'projects'});
 
 

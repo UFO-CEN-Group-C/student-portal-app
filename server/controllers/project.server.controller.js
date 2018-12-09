@@ -5,7 +5,7 @@
 var mongoose = require('mongoose'), 
     Project = require('../models/projectModel.js'),
     Team = require('../models/teamModel.js'),
-    ReadProjectModel = require('../models/project.server.model');
+    ReadProjectModel = require('../models/projectModel.js');
 
 exports.read = function(req, res) {
     var projectId = req.params.projectId;
@@ -60,7 +60,7 @@ exports.list_members = function(req, res) {
 /* create project */
 exports.create = function(req, res) {
 
-    var project= new Project({ name:req.params.title,creatorID: req.params.creator, Description:req.params.descr})
+    var project= new Project({ name:req.params.title,creatorID: req.params.creator, description:req.params.descr})
     console.log(project);
     project.save(function (err, response) {
         if (err) {console.error(err); res.status(404).send(err);}
