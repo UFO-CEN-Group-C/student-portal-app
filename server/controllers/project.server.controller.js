@@ -5,7 +5,7 @@
 var mongoose = require('mongoose'), 
     Project = require('../models/projectModel.js'),
     Team = require('../models/teamModel.js'),
-    ReadProjectModel = require('../models/project.server.model');
+    ReadProjectModel = require('../models/projectModel.js');
 
 exports.read = function(req, res) {
     var projectId = req.params.projectId;
@@ -40,14 +40,13 @@ exports.list_members = function(req, res) {
 	else{
 			try{
 			var list=team["members"]
+			list.push(project["creatorID"]);
 			}
 			catch
 			{
 			var list=[]
 	    		list.push(project["creatorID"]);
-	    		res.status(200).send({list:list})
 			}
-			list.push(project["creatorID"]);
 			res.status(200).send({list:list})
 		}
 	
@@ -61,14 +60,14 @@ exports.list_members = function(req, res) {
 /* create project */
 exports.create = function(req, res) {
 
-    var project= new Project({ name:req.params.title,creatorID: req.params.creator, Description:req.params.descr})
+    var project= new Project({ name:req.params.title,creatorID: req.params.creator, description:req.params.descr})
     console.log(project);
-    project.save(function (err, entry) {
+    project.save(function (err, response) {
         if (err) {console.error(err); res.status(404).send(err);}
         else {
         console.log(req.params.title);
-        console.log(entry[0]);
-        res.status(200).send({res:'project created',id:entry[0]})
+        console.log(response);
+        res.status(200).send({res:'project created',id:response})
         }
       });
     
